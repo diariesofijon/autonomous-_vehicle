@@ -13,8 +13,12 @@ class Controller {
     
     public:
     
-        bool isGoToLeft = true;
-    
+        bool isGoToLeft = false;
+        bool isGoToRight = false;
+
+        bool DidntArrived
+
+ 
         Location currentLocation = {0, 0};
         Location arrivingLocation = {0, 0}
     
@@ -27,12 +31,12 @@ class Controller {
     
         toRide () {
             WillBeInThePoint = true;
-            DidntArrive = false;
-            startVehicle()
-            while (WillBeInThePoint and !DidntArrive) {
+            setVectorOfMoving();
+            startVehicle();
+            while (WillBeInThePoint and !DidntArrived) {
                 WillBeInThePoint = checkWillBeInThePoint();
             } else {
-                while
+                toRide();
             }
         }
     
@@ -69,6 +73,21 @@ class Controller {
             }
             digitlaWrite(TurnPIN, true);
         }
+
+        setVectorOfMoving () {
+            if (currentLocation.x - arrivingLocation.x > 0) {
+                isGoToLeft = true;
+                isGoToRight = false;
+            }
+            if (currentLocation.x - arrivingLocation.x < 0) {
+                isGoToLeft = false;
+                isGoToRight = true;
+            }
+            if (currentLocation.x - arrivingLocation.x == 0) {
+                isGoToLeft = false;
+                isGoToRight = false;
+            }
+        }
     
         connectGeoLocation () {
             // library that produce connection to the server of geolocation
@@ -86,9 +105,11 @@ void setup() {
   Serial.begin(9600);
 }
 
+Controller vehicle = Controller ();
+
 // loop checks the button pin each time,
 // and will send serial if it is pressed
 void loop() {
-
   delay(1000);
+  vehicle.toRide()
 }
