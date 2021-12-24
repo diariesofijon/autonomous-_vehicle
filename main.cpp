@@ -2,7 +2,7 @@ int VectorPIN = 7;
 int TurnPIN = 8;
 int StopPIN = 9;
 
-struct Locatoin {
+struct Location {
     int x;
     int y;
 };
