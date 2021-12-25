@@ -40,9 +40,8 @@ class Controller {
             startMoving();
             while (WillBeInThePoint and !isArrived) {
                 WillBeInThePoint = checkWillBeInThePoint();
-            } else {
-                toRide();
             }
+            toRide();
         }
     
     private:
@@ -54,23 +53,23 @@ class Controller {
         }
     
         stopVehicle() {
-            digitlaWrite(TurnPIN, LAW);
+            digitalWrite(TurnPIN, LOW);
             digitalWrite(StopPIN, HIGH);
         }
     
         stopMoving() {
-            digitlaWrite(TurnPIN, LAW);
+            digitalWrite(TurnPIN, LOW);
         }
     
         powerVehicle () {
-            digitalWrite(StopPIN, LAW);
+            digitalWrite(StopPIN, LOW);
         }
     
         startMoving() {
-            if (digitalRead(StopPin) == HIGH) {
+            if (digitalRead(StopPIN) == HIGH) {
                 powerVehicle();
             }
-            digitalWrite(TurnPIN, HOW);
+            digitalWrite(TurnPIN, LOW);
         }
 
         setVectorOfMoving () {
@@ -106,7 +105,8 @@ class Controller {
             while (!HCBluetooth.available()) {
                 // waiting ...
             }
-            return lastResolution == HCBLuetooth.read();
+            int currentResolution = HCBLuetooth.read();
+            return lastResolution == currentResolution;
         }
 };
 
@@ -117,7 +117,7 @@ void setup() {
   HCBluetooth.begin(9600);
 }
 
-Controller vehicle = Controller ();
+Controller vehicle = Controller();
 
 // loop checks the button pin each time,
 // and will send serial if it is pressed
