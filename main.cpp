@@ -35,10 +35,9 @@ class Controller {
         }
     
         toRide () {
-            analogReadResolution(analogBase);
-            WillBeInThePoint = true;
+            bool WillBeInThePoint = true;
             setVectorOfMoving();
-            startVehicle();
+            startMoving();
             while (WillBeInThePoint and !isArrived) {
                 WillBeInThePoint = checkWillBeInThePoint();
             } else {
