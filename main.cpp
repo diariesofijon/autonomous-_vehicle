@@ -16,7 +16,7 @@ class Controller {
         bool isGoToLeft = false;
         bool isGoToRight = false;
 
-        bool DidntArrived
+        bool isArrived = false;
 
  
         Location currentLocation = {0, 0};
@@ -33,7 +33,7 @@ class Controller {
             WillBeInThePoint = true;
             setVectorOfMoving();
             startVehicle();
-            while (WillBeInThePoint and !DidntArrived) {
+            while (WillBeInThePoint and !isArrived) {
                 WillBeInThePoint = checkWillBeInThePoint();
             } else {
                 toRide();
