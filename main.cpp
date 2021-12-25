@@ -81,7 +81,7 @@ class Controller {
                     startMoving();
                     break;
                 case 4:
-                    digitlaWrite(VectorPIN, LAW);
+                    digitlaWrite(VectorPIN, LOW);
                     break;
                 case 3:
                     stopVehicle();
