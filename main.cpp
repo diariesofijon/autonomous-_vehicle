@@ -26,10 +26,6 @@ class Controller {
 
         bool isArrived = false;
     
-        int analogBase = 10;
-    
-        int lastResolution = 0;
-    
         Controller() {
             setUpPins();
         }
@@ -46,6 +42,8 @@ class Controller {
     
     private:
     
+        int lastResolution = 0;
+
         setUpPins() {
             pinMode(VectorPIN, INPUT);
             pinMode(TurnPIN, INPUT);
