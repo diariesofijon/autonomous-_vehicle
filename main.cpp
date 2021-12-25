@@ -23,8 +23,6 @@ class Controller {
     // работает после сетапа
     
     public:
-    
-        SoftwareSerial HC;
 
         bool isArrived = false;
     
