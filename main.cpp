@@ -31,7 +31,7 @@ class Controller {
         int lastResolution = 0;
     
         Controller() {
-            setUpsPins();
+            setUpPins();
         }
     
         toRide () {
