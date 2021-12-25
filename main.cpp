@@ -2,6 +2,16 @@ int VectorPIN = 7;
 int TurnPIN = 8;
 int StopPIN = 9;
 
+/*
+
+    5 is 101
+    4 is 100
+    3 is 011
+    2 is 010
+    1 is 001
+
+*/
+
 struct Location {
     int x;
     int y;
