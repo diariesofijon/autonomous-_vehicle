@@ -1,21 +1,22 @@
+#include <SoftwareSerial.h> 
+
+int BluetoothInPut = 2;
+int BluetoothOutPut = 3;
 int VectorPIN = 7;
 int TurnPIN = 8;
 int StopPIN = 9;
 
+SoftwareSerial HCBluetooth(BluetoothInPut, BluetoothOutPut);
+
 /*
 
-    5 is 101
-    4 is 100
-    3 is 011
-    2 is 010
-    1 is 001
+    5 is 101 go to ahead
+    4 is 100 have to vector to 0
+    3 is 011 stop vehicle
+    2 is 010 stop movement
+    1 is 001 have to vector to 1
 
 */
-
-struct Location {
-    int x;
-    int y;
-};
 
 class Controller {
     
@@ -23,23 +24,20 @@ class Controller {
     
     public:
     
-        bool isGoToLeft = false;
-        bool isGoToRight = false;
+        SoftwareSerial HC;
 
         bool isArrived = false;
-
- 
-        Location currentLocation = {0, 0};
-        Location arrivingLocation = {0, 0}
     
-        GeoConnection connection;
+        int analogBase = 10;
+    
+        int lastResolution = 0;
     
         Controller() {
             setUpsPins();
-            connection = connectGeoLocation();
         }
     
         toRide () {
+            analogReadResolution(analogBase);
             WillBeInThePoint = true;
             setVectorOfMoving();
             startVehicle();
@@ -56,56 +54,62 @@ class Controller {
             pinMode(VectorPIN, INPUT);
             pinMode(TurnPIN, INPUT);
             pinMode(StopPIN, INPUT);
-            
-            digitalWrite(VectorPIN, isGoToLeft);
-            digitalWrite(TurnPIN, false);
-            digitalWrite(StopPIN, false);
-        }
-    
-        handleGeoData () {
-            if (connection.location.x == -1 and connection.location.y = -1 ) {
-                stopVehicle();
-            }
         }
     
         stopVehicle() {
-            digitlaWrite(TurnPIN, false);
-            digitalWrite(StopPIN, true);
+            digitlaWrite(TurnPIN, LAW);
+            digitalWrite(StopPIN, HIGH);
+        }
+    
+        stopMoving() {
+            digitlaWrite(TurnPIN, LAW);
         }
     
         powerVehicle () {
-            digitalWrite(StopPIN, false);
+            digitalWrite(StopPIN, LAW);
         }
     
         startMoving() {
-            if (digitalRead(StopPin)) {
+            if (digitalRead(StopPin) == HIGH) {
                 powerVehicle();
             }
-            digitlaWrite(TurnPIN, true);
+            digitalWrite(TurnPIN, HOW);
         }
 
         setVectorOfMoving () {
-            if (currentLocation.x - arrivingLocation.x > 0) {
-                isGoToLeft = true;
-                isGoToRight = false;
+            while (!HCBluetooth.available()) {
+                // waiting ...
             }
-            if (currentLocation.x - arrivingLocation.x < 0) {
-                isGoToLeft = false;
-                isGoToRight = true;
+            if (HCBluetooth.available() > 0) {
+                lastResolution = HCBLuetooth.read();
+                switch (lastResolution) {
+                case 5:
+                    startMoving();
+                    break;
+                case 4:
+                    digitlaWrite(VectorPIN, LAW);
+                    break;
+                case 3:
+                    stopVehicle();
+                    break;
+                case 2:
+                    stopMoving();
+                    break;
+                case 1:
+                    digitlaWrite(VectorPIN, HIGH);
+                    break;
+                default:
+                    setVectorOfMoving()
+                    break;
+                }
             }
-            if (currentLocation.x - arrivingLocation.x == 0) {
-                isGoToLeft = false;
-                isGoToRight = false;
-            }
-        }
-    
-        connectGeoLocation () {
-            // library that produce connection to the server of geolocation
-            return connection;
         }
     
         checkWillBeInThePoint () {
-            
+            while (!HCBluetooth.available()) {
+                // waiting ...
+            }
+            return lastResolution == HCBLuetooth.read();
         }
 };
 
@@ -113,6 +117,7 @@ class Controller {
 // setup initializes serial and the button pin
 void setup() {
   Serial.begin(9600);
+  HCBluetooth.begin(9600);
 }
 
 Controller vehicle = Controller ();
@@ -121,5 +126,5 @@ Controller vehicle = Controller ();
 // and will send serial if it is pressed
 void loop() {
   delay(1000);
-  vehicle.toRide()
+  vehicle.toRide();
 }
