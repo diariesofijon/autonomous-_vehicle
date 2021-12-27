@@ -1,13 +1,12 @@
 #include <SoftwareSerial.h> 
 
-int BluetoothInPut = 2;
-int BluetoothOutPut = 3;
+int BluetoothRX = 2;
+int BluetoothTX = 3;
 int VectorPIN = 7;
 int TurnPIN = 8;
 int StopPIN = 9;
 
-SoftwareSerial HCBluetooth(BluetoothInPut, BluetoothOutPut);
-
+SoftwareSerial HCBluetooth(BluetoothRX, BluetoothTX); // RX, TX
 /*
 
     5 is 101 go to ahead
