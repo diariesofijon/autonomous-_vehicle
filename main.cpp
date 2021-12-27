@@ -38,16 +38,16 @@ class Controller {
             }
             toRide();
         }
-    
-    private:
-    
-        int lastResolution = 0;
 
         setUpPins() {
             pinMode(VectorPIN, INPUT);
             pinMode(TurnPIN, INPUT);
             pinMode(StopPIN, INPUT);
         }
+    
+    private:
+    
+        int lastResolution = 0;
     
         stopVehicle() {
             digitalWrite(TurnPIN, LOW);
