@@ -75,13 +75,13 @@ class Controller {
                 // waiting ...
             }
             if (HCBluetooth.available() > 0) {
-                lastResolution = HCBLuetooth.read();
+                lastResolution = HCBluetooth.read();
                 switch (lastResolution) {
                 case 5:
                     startMoving();
                     break;
                 case 4:
-                    digitlaWrite(VectorPIN, LOW);
+                    digitalWrite(VectorPIN, LOW);
                     break;
                 case 3:
                     stopVehicle();
@@ -90,10 +90,10 @@ class Controller {
                     stopMoving();
                     break;
                 case 1:
-                    digitlaWrite(VectorPIN, HIGH);
+                    digitalWrite(VectorPIN, HIGH);
                     break;
                 default:
-                    setVectorOfMoving()
+                    setVectorOfMoving();
                     break;
                 }
             }
@@ -103,7 +103,7 @@ class Controller {
             while (!HCBluetooth.available()) {
                 // waiting ...
             }
-            int currentResolution = HCBLuetooth.read();
+            int currentResolution = HCBluetooth.read();
             return lastResolution == currentResolution;
         }
 };
