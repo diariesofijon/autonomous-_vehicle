@@ -107,14 +107,14 @@ class Controller {
         }
 };
 
+Controller vehicle = Controller();
 
 // setup initializes serial and the button pin
 void setup() {
   Serial.begin(9600);
   HCBluetooth.begin(9600);
+  vehicle.setUpPins();
 }
-
-Controller vehicle = Controller();
 
 // loop checks the button pin each time,
 // and will send serial if it is pressed
