@@ -30,36 +30,15 @@
 #define REMOTEXY_SERIAL_TX 3
 #define REMOTEXY_SERIAL_SPEED 9600
 
-/*
-    5 is 101 go to ahead
-    4 is 100 have to vector to 0
-    3 is 011 stop vehicle
-    2 is 010 stop movement
-    1 is 001 have to vector to 1
-*/
 
 // RemoteXY configurate  
 #pragma pack(push, 1)
 uint8_t RemoteXY_CONF[] =
-  { 255,3,0,42,0,240,0,13,13,0,
+  { 255,3,0,0,0,100,0,13,13,0,
   2,0,39,7,22,11,2,26,31,31,
   79,78,0,79,70,70,0,1,0,7,
   5,12,12,2,31,88,0,1,0,82,
   5,12,12,2,31,88,0,129,0,5,
-  28,37,6,17,208,154,208,190,208,190,
-  209,128,208,180,208,184,208,189,208,176,
-  209,130,209,139,0,129,0,4,37,51,
-  2,17,208,159,208,190,208,187,208,190,
-  208,182,208,181,208,189,208,184,208,181,
-  32,208,186,208,190,208,187,208,181,209,
-  129,32,208,190,209,130,208,189,208,190,
-  209,129,208,184,209,130,208,181,208,187,
-  209,140,208,189,208,190,32,208,191,209,
-  128,208,190,209,136,208,187,208,190,208,
-  179,208,190,32,208,178,208,181,208,186,
-  209,130,208,190,209,128,208,176,0,67,
-  5,59,28,20,5,2,26,31,67,5,
-  59,36,20,5,2,26,11,129,0,5,
   18,13,6,17,115,116,97,114,116,0,
   129,0,64,20,34,3,17,208,184,208,
   183,208,188,208,181,208,189,208,184,209,
@@ -75,10 +54,6 @@ struct {
   uint8_t button_start; // =1 if button pressed, else =0 
   uint8_t button_change_vector; // =1 if button pressed, else =0 
 
-    // output variables
-  char edit_coordiantes[31];  // string UTF8 end zero 
-  char vector[11];  // string UTF8 end zero 
-
     // other variable
   uint8_t connect_flag;  // =1 if wire connected, else =0 
 
@@ -93,6 +68,13 @@ struct {
 #define PIN_BUTTON_START 0
 #define PIN_BUTTON_CHANGE_VECTOR 0
 
+/*
+    5 is 101 go to ahead
+    4 is 100 have to vector to 0
+    3 is 011 stop vehicle
+    2 is 010 stop movement
+    1 is 001 have to vector to 1
+*/
 
 void setup() 
 {
@@ -109,7 +91,6 @@ void setup()
 void loop() 
 { 
   RemoteXY_Handler ();
-  
   
   digitalWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?5:3);
   digitalWrite(PIN_BUTTON_START, (RemoteXY.button_start==0)?2:5);
