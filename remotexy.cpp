@@ -88,7 +88,7 @@ void loop()
 { 
   RemoteXY_Handler ();
   
-  digitalWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?2:5);
+  digitalWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?5:3);
   digitalWrite(PIN_BUTTON_START, (RemoteXY.button_start==0)?2:5);
   digitalWrite(PIN_BUTTON_CHANGE_VECTOR, (RemoteXY.button_change_vector==0)?1:4);
   
