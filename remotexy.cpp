@@ -40,6 +40,14 @@ uint8_t RemoteXY_CONF[] =
   5,12,12,2,31,88,0,1,0,82,
   5,12,12,2,31,88,0,7,36,32,
   29,20,5,2,26,2,11 };
+
+/*
+    5 is 101 go to ahead
+    4 is 100 have to vector to 0
+    3 is 011 stop vehicle
+    2 is 010 stop movement
+    1 is 001 have to vector to 1
+*/
   
 // структура определяет все переменные и события вашего интерфейса управления 
 struct {
@@ -64,7 +72,6 @@ struct {
 #define PIN_BUTTON_START 0
 #define PIN_BUTTON_CHANGE_VECTOR 0
 
-
 void setup() 
 {
   RemoteXY_Init (); 
@@ -81,9 +88,9 @@ void loop()
 { 
   RemoteXY_Handler ();
   
-  digitalWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?LOW:HIGH);
-  digitalWrite(PIN_BUTTON_START, (RemoteXY.button_start==0)?LOW:HIGH);
-  digitalWrite(PIN_BUTTON_CHANGE_VECTOR, (RemoteXY.button_change_vector==0)?LOW:HIGH);
+  digitalWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?2:5);
+  digitalWrite(PIN_BUTTON_START, (RemoteXY.button_start==0)?2:5);
+  digitalWrite(PIN_BUTTON_CHANGE_VECTOR, (RemoteXY.button_change_vector==0)?1:4);
   
   // TODO you loop code
   // используйте структуру RemoteXY для передачи данных
