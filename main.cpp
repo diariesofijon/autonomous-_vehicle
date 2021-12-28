@@ -41,7 +41,8 @@ class Controller {
         }
 
         setUpPins() {
-            pinMode(VectorPIN, INPUT);
+            pinMode(VectorLeftPIN, INPUT);
+            pinMode(VectorRightPIN, INPUT);
             pinMode(TurnPIN, INPUT);
             pinMode(StopPIN, INPUT);
         }
