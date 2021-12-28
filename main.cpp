@@ -2,7 +2,8 @@
 
 int BluetoothRX = 2;
 int BluetoothTX = 3;
-int VectorPIN = 7;
+int VectorLeftPIN = 7;
+int VectorRightPIN = 7;
 int TurnPIN = 8;
 int StopPIN = 9;
 
@@ -67,6 +68,8 @@ class Controller {
                 powerVehicle();
             }
             digitalWrite(TurnPIN, LOW);
+            digitalWrite(VectorLeftPIN, LOW);
+            digitalWrite(VectorRightPIN, LOW);
         }
 
         setVectorOfMoving () {
@@ -80,7 +83,8 @@ class Controller {
                     startMoving();
                     break;
                 case 4:
-                    digitalWrite(VectorPIN, LOW);
+                    digitalWrite(VectorLeftPIN, HIGH);
+                    digitalWrite(VectorRightPIN, LOW);
                     break;
                 case 3:
                     stopVehicle();
@@ -89,7 +93,8 @@ class Controller {
                     stopMoving();
                     break;
                 case 1:
-                    digitalWrite(VectorPIN, HIGH);
+                    digitalWrite(VectorLeftPIN, LOW);
+                    digitalWrite(VectorRightPIN, HIGH);
                     break;
                 default:
                     setVectorOfMoving();
