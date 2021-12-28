@@ -56,7 +56,7 @@ struct {
   uint8_t turn_on_engine; // =1 если переключатель включен и =0 если отключен 
   uint8_t button_start; // =1 если кнопка нажата, иначе =0 
   uint8_t button_change_vector; // =1 если кнопка нажата, иначе =0 
-  char edit_coordiantes[11];  // =строка UTF8 оканчивающаяся нулем  
+  char edit_coordiantes[31];  // =строка UTF8 оканчивающаяся нулем  
 
     // other variable
   uint8_t connect_flag;  // =1 if wire connected, else =0 
