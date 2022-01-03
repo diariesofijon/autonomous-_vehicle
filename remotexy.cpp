@@ -92,9 +92,9 @@ void loop()
 { 
   RemoteXY_Handler ();
   
-  digitalWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?5:3);
-  digitalWrite(PIN_BUTTON_START, (RemoteXY.button_start==0)?2:5);
-  digitalWrite(PIN_BUTTON_CHANGE_VECTOR, (RemoteXY.button_change_vector==0)?1:4);
+  analogWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?5:3);
+  analogWrite(PIN_BUTTON_START, (RemoteXY.button_start==0)?2:5);
+  analogWrite(PIN_BUTTON_CHANGE_VECTOR, (RemoteXY.button_change_vector==0)?1:4);
   
   // TODO you loop code
   // use the RemoteXY structure for data transfer
