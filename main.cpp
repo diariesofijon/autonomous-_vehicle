@@ -68,7 +68,7 @@ class Controller {
             if (digitalRead(StopPIN) == HIGH) {
                 powerVehicle();
             }
-            digitalWrite(TurnPIN, LOW);
+            digitalWrite(TurnPIN, HIGH);
             digitalWrite(VectorLeftPIN, LOW);
             digitalWrite(VectorRightPIN, LOW);
         }
