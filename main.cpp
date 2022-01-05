@@ -88,7 +88,7 @@ class Controller {
                 }
                 int streamDegree = 0;
                 while (streamDegree <= 5) {
-                    streamDegree = HCBluetooth.read();
+                    streamDegree = readBluetoothStream();
                     currentDegree = streamDegree - 5;
                     HCBluetooth.println();
                     HCBluetooth.print("Нужно повернуть на ");
@@ -104,7 +104,7 @@ class Controller {
                 // waiting ...
             }
             if (HCBluetooth.available() > 0) {
-                lastResolution = HCBluetooth.read();
+                lastResolution = readBluetoothStream();
                 switch (lastResolution) {
                 case 5:
                     startMoving();
@@ -134,6 +134,17 @@ class Controller {
             }
             int currentResolution = HCBluetooth.read();
             return lastResolution == currentResolution;
+        }
+    
+        int readBluetoothStream() {
+            while (!HCBluetooth.available()) {
+                // waiting ...
+            }
+            unsigned int result = 0;
+            while (!result) {
+                result = HCBluetooth.read();
+            }
+            return result;
         }
 };
 
