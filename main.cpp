@@ -51,7 +51,6 @@ class Controller {
     private:
     
         unsigned int lastResolution = 0;
-        unsigned int lastDegree = 0;
     
         void stopVehicle() {
             digitalWrite(TurnPIN, LOW);
@@ -95,8 +94,6 @@ class Controller {
                     HCBluetooth.println();
                     HCBluetooth.print("Нужно повернуть на ");
                     HCBluetooth.print(currentDegree);
-                    HCBluetooth.print(" чтобы оказаться на ");
-                    HCBluetooth.print(lastDegree);
                     HCBluetooth.println();
                 }
                 isTurning = !!currentDegree;
