@@ -37,7 +37,6 @@ class Controller {
             while (WillBeInThePoint and !isArrived) {
                 WillBeInThePoint = checkWillBeInThePoint();
             }
-            showCompassCoordinates();
             toRide();
         }
 
