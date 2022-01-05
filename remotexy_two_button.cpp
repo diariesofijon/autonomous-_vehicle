@@ -36,7 +36,7 @@
 // RemoteXY configurate  
 #pragma pack(push, 1)
 uint8_t RemoteXY_CONF[] =
-  { 255,5,0,0,0,132,0,14,13,0,
+  { 255,9,0,0,0,139,0,14,13,0,
   2,0,39,7,22,11,2,26,31,31,
   79,78,0,79,70,70,0,1,0,7,
   5,12,12,2,31,88,0,129,0,5,
@@ -49,7 +49,8 @@ uint8_t RemoteXY_CONF[] =
   43,12,12,2,31,88,0,1,0,82,
   42,12,12,2,31,88,0,1,0,81,
   7,12,12,2,31,88,0,129,0,76,
-  23,18,6,17,115,116,111,112,0 };
+  23,18,6,17,115,116,111,112,0,8,
+  0,40,23,17,17,24 };
   
 // this structure defines all the variables and events of your control interface 
 struct {
@@ -60,6 +61,7 @@ struct {
   uint8_t button_change_vector_left; // =1 if button pressed, else =0 
   uint8_t button_change_vector_right; // =1 if button pressed, else =0 
   uint8_t button_stop; // =1 if button pressed, else =0 
+  float compass_vector; // 0 .. 359.999 
 
     // other variable
   uint8_t connect_flag;  // =1 if wire connected, else =0 
@@ -77,13 +79,6 @@ struct {
 #define PIN_BUTTON_CHANGE_VECTOR_RIGHT 0
 #define PIN_BUTTON_STOP 0
 
-/*
-    5 is 101 go to ahead
-    4 is 100 have to vector to 0
-    3 is 011 stop vehicle
-    2 is 010 stop movement
-    1 is 001 have to vector to 1
-*/
 
 void setup() 
 {
