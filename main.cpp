@@ -30,19 +30,18 @@ class Controller {
             setUpPins();
         }
     
-        toRide () {
+        void toRide () {
             bool WillBeInThePoint = true;
             setVectorOfMoving();
             startMoving();
             while (WillBeInThePoint and !isArrived) {
                 WillBeInThePoint = checkWillBeInThePoint();
             }
-            HCBluetooth.print(HCBluetooth.read());
-            HCBluetooth.println();
+            showCompassCoordinates();
             toRide();
         }
 
-        setUpPins() {
+        void setUpPins() {
             pinMode(VectorLeftPIN, INPUT);
             pinMode(VectorRightPIN, INPUT);
             pinMode(TurnPIN, INPUT);
@@ -51,22 +50,23 @@ class Controller {
     
     private:
     
-        int lastResolution = 0;
+        unsigned int lastResolution = 0;
+        unsigned int lastDegree = 0;
     
-        stopVehicle() {
+        void stopVehicle() {
             digitalWrite(TurnPIN, LOW);
             digitalWrite(StopPIN, HIGH);
         }
     
-        stopMoving() {
+        void stopMoving() {
             digitalWrite(TurnPIN, LOW);
         }
     
-        powerVehicle () {
+        void powerVehicle () {
             digitalWrite(StopPIN, LOW);
         }
     
-        startMoving() {
+        void startMoving() {
             if (digitalRead(StopPIN) == HIGH) {
                 powerVehicle();
             }
@@ -75,7 +75,35 @@ class Controller {
             digitalWrite(VectorRightPIN, LOW);
         }
 
-        setVectorOfMoving () {
+        void toTurn(int left, int right) {
+            /*
+                ВАЖНО!
+                при команде поворота контроллер перестает отзываться на другие команды, но ждет граду на который нужно повернуть
+            */
+            digitalWrite(VectorLeftPIN, left);
+            digitalWrite(VectorRightPIN, right);
+            bool isTurning = true;
+            unsigned int currentDegree = 0;
+            while (isTurning) {
+                while (!HCBluetooth.available()) {
+                    // waiting ...
+                }
+                int streamDegree = 0;
+                if (streamDegree <= 5) {ae
+                    HCBluetooth.read();
+                    currentDegree = streamDegree - 5;
+                    HCBluetooth.println();
+                    HCBluetooth.print("Нужно повернуть на ");
+                    HCBluetooth.print(currentDegree);
+                    HCBluetooth.print(" чтобы оказаться на ");
+                    HCBluetooth.print(lastDegree);
+                    HCBluetooth.println();
+                }
+                isTurning = !!currentDegree;
+            }
+        }
+
+        void setVectorOfMoving () {
             while (!HCBluetooth.available()) {
                 // waiting ...
             }
@@ -86,8 +114,7 @@ class Controller {
                     startMoving();
                     break;
                 case 4:
-                    digitalWrite(VectorLeftPIN, HIGH);
-                    digitalWrite(VectorRightPIN, LOW);
+                    toTurn(HIGH, LOW);
                     break;
                 case 3:
                     stopVehicle();
@@ -96,8 +123,7 @@ class Controller {
                     stopMoving();
                     break;
                 case 1:
-                    digitalWrite(VectorLeftPIN, LOW);
-                    digitalWrite(VectorRightPIN, HIGH);
+                    toTurn(LOW, HIGH);
                     break;
                 default:
                     setVectorOfMoving();
@@ -106,7 +132,7 @@ class Controller {
             }
         }
     
-        checkWillBeInThePoint () {
+        void checkWillBeInThePoint () {
             while (!HCBluetooth.available()) {
                 // waiting ...
             }
