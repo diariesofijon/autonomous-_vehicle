@@ -37,6 +37,8 @@ class Controller {
             while (WillBeInThePoint and !isArrived) {
                 WillBeInThePoint = checkWillBeInThePoint();
             }
+            HCBluetooth.print(HCBluetooth.read());
+            HCBluetooth.println();
             toRide();
         }
 
