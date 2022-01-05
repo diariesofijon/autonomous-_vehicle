@@ -86,7 +86,7 @@ class Controller {
                 while (!HCBluetooth.available()) {
                     // waiting ...
                 }
-                int streamDegree = 0;
+                unsigned int streamDegree = 0;
                 while (streamDegree <= 5) {
                     streamDegree = readBluetoothStream();
                     currentDegree = streamDegree - 5;
@@ -128,7 +128,7 @@ class Controller {
             }
         }
     
-        void checkWillBeInThePoint () {
+        bool checkWillBeInThePoint () {
             while (!HCBluetooth.available()) {
                 // waiting ...
             }
@@ -136,7 +136,7 @@ class Controller {
             return lastResolution == currentResolution;
         }
     
-        int readBluetoothStream() {
+        unsigned int readBluetoothStream() {
             while (!HCBluetooth.available()) {
                 // waiting ...
             }
