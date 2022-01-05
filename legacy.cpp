@@ -30,7 +30,7 @@ class Controller {
             setUpPins();
         }
     
-        toRide () {
+        void toRide () {
             bool WillBeInThePoint = true;
             setVectorOfMoving();
             startMoving();
@@ -40,7 +40,7 @@ class Controller {
             toRide();
         }
 
-        setUpPins() {
+        void setUpPins() {
             pinMode(VectorLeftPIN, INPUT);
             pinMode(VectorRightPIN, INPUT);
             pinMode(TurnPIN, INPUT);
@@ -51,20 +51,20 @@ class Controller {
     
         int lastResolution = 0;
     
-        stopVehicle() {
+        void stopVehicle() {
             digitalWrite(TurnPIN, LOW);
             digitalWrite(StopPIN, HIGH);
         }
     
-        stopMoving() {
+        void stopMoving() {
             digitalWrite(TurnPIN, LOW);
         }
     
-        powerVehicle () {
+        void powerVehicle () {
             digitalWrite(StopPIN, LOW);
         }
     
-        startMoving() {
+        void startMoving() {
             if (digitalRead(StopPIN) == HIGH) {
                 powerVehicle();
             }
@@ -73,7 +73,7 @@ class Controller {
             digitalWrite(VectorRightPIN, LOW);
         }
 
-        setVectorOfMoving () {
+        void setVectorOfMoving () {
             while (!HCBluetooth.available()) {
                 // waiting ...
             }
@@ -104,7 +104,7 @@ class Controller {
             }
         }
     
-        checkWillBeInThePoint () {
+        void checkWillBeInThePoint () {
             while (!HCBluetooth.available()) {
                 // waiting ...
             }
