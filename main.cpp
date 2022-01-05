@@ -89,8 +89,8 @@ class Controller {
                     // waiting ...
                 }
                 int streamDegree = 0;
-                if (streamDegree <= 5) {ae
-                    HCBluetooth.read();
+                while (streamDegree <= 5) {
+                    streamDegree = HCBluetooth.read();
                     currentDegree = streamDegree - 5;
                     HCBluetooth.println();
                     HCBluetooth.print("Нужно повернуть на ");
