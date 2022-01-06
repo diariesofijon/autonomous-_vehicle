@@ -86,6 +86,13 @@ struct {
 
 SoftwareSerial HCBluetooth(2, 3); // RX, TX
 
+void writeBluetoothStream (int data) {
+    while (!HCBluetooth.available()) {
+        // waiting ...
+    }
+    HCBluetooth.write(data);
+}
+
 unsigned int getDegreeToTurn() {
    if (!RemoteXY.joystick_1_y) {
       return 90;
@@ -99,21 +106,20 @@ unsigned int getDegreeToTurn() {
    return uresult;
 }
 
-void changeVector(int left, int right) {
-   int pin = PIN_BUTTON_CHANGE_VECTOR_LEFT;
+int changeVector(int left, int right) {
    if (left) {
-      int pin = PIN_BUTTON_CHANGE_VECTOR_LEFT;
-      analogWrite(PIN_BUTTON_CHANGE_VECTOR_LEFT, 4);
-   }
-   if (right) {
-      int pin = PIN_BUTTON_CHANGE_VECTOR_RIGHT;
-      analogWrite(PIN_BUTTON_CHANGE_VECTOR_RIGHT, 1);
+      writeBluetoothStream(4);
+   } else if (right) {
+      writeBluetoothStream(1);
+   } else {
+      return -1;
    }
    unsigned int degree = getDegreeToTurn();
    while (degree) {
-      analogWrite(pin, degree);
+      writeBluetoothStream(degree);
       degree = getDegreeToTurn();
    }
+   return 0;
 }
 
 void setup() 
@@ -136,9 +142,9 @@ void loop()
    
   changeVector(RemoteXY.button_change_vector_left, RemoteXY.button_change_vector_right) 
   
-  analogWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?5:3);
-  analogWrite(PIN_BUTTON_START, (RemoteXY.button_start==0)?2:5);
-  analogWrite(PIN_BUTTON_STOP, (RemoteXY.button_stop==0)?2:0);
+  writeBluetoothStream((RemoteXY.turn_on_engine==0)?5:3);
+  writeBluetoothStream((RemoteXY.button_start==0)?2:5);
+  writeBluetoothStream((RemoteXY.button_stop==0)?2:0);
   
   // TODO you loop code
   // use the RemoteXY structure for data transfer
