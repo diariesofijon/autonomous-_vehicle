@@ -97,6 +97,7 @@ unsigned int getDegreeToTurn() {
    int result = floor(RemoteXY.compass_vector - 180);
    result -= atan(RemoteXY.joystick_1_y/RemoteXY.joystick_1_x);
    unsigned int uresult = floor(result);
+   dtostrf(uresult, 0, 2, RemoteXY.text_1);
    return uresult;
 }
 
