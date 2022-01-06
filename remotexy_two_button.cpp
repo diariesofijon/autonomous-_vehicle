@@ -137,7 +137,8 @@ void loop()
 { 
   RemoteXY_Handler ();
    
-  changeVector(RemoteXY.button_change_vector_left, RemoteXY.button_change_vector_right) 
+  changeVector(RemoteXY.button_change_vector_left, RemoteXY.button_change_vector_right);
+
   
   writeBluetoothStream((RemoteXY.turn_on_engine==0)?5:3);
   writeBluetoothStream((RemoteXY.button_start==0)?2:5);
