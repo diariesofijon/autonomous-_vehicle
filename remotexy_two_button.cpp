@@ -78,12 +78,6 @@ struct {
 //           END RemoteXY include          //
 /////////////////////////////////////////////
 
-#define PIN_TURN_ON_ENGINE 0
-#define PIN_BUTTON_START 0
-#define PIN_BUTTON_CHANGE_VECTOR_LEFT 0
-#define PIN_BUTTON_CHANGE_VECTOR_RIGHT 0
-#define PIN_BUTTON_STOP 0
-
 SoftwareSerial HCBluetooth(REMOTEXY_SERIAL_RX, REMOTEXY_SERIAL_TX); // RX, TX
 
 void writeBluetoothStream (int data) {
@@ -125,12 +119,6 @@ int changeVector(int left, int right) {
 void setup() 
 {
   RemoteXY_Init (); 
-  
-  pinMode (PIN_TURN_ON_ENGINE, OUTPUT);
-  pinMode (PIN_BUTTON_START, OUTPUT);
-  pinMode (PIN_BUTTON_CHANGE_VECTOR_LEFT, OUTPUT);
-  pinMode (PIN_BUTTON_CHANGE_VECTOR_RIGHT, OUTPUT);
-  pinMode (PIN_BUTTON_STOP, OUTPUT);
   
   // TODO you setup code
   
