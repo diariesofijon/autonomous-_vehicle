@@ -85,7 +85,10 @@ struct {
 #define PIN_BUTTON_STOP 0
 
 unsigned int getDegreeToTurn() {
-   return floor(compass_vector - 180 - atan(joystick_1_y/joystick_1_x));
+   int result = compass_vector - atan(RemoteXY.joystick_1_y/RemoteXY.joystick_1_x);
+   result -= 180;
+   unsigned int uresult = floor(result);
+   return uresult;
 }
 
 void changeVector(int left, int right) {
