@@ -84,7 +84,7 @@ struct {
 #define PIN_BUTTON_CHANGE_VECTOR_RIGHT 0
 #define PIN_BUTTON_STOP 0
 
-SoftwareSerial HCBluetooth(2, 3); // RX, TX
+SoftwareSerial HCBluetooth(REMOTEXY_SERIAL_RX, REMOTEXY_SERIAL_TX); // RX, TX
 
 void writeBluetoothStream (int data) {
     while (!HCBluetooth.available()) {
