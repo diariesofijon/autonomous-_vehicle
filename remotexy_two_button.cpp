@@ -124,6 +124,14 @@ void setup()
   
 }
 
+/*
+    5 is 101 go to ahead
+    4 is 100 have to vector to 0
+    3 is 011 stop vehicle
+    2 is 010 stop movement
+    1 is 001 have to vector to 1
+*/
+
 void loop() 
 { 
   RemoteXY_Handler ();
