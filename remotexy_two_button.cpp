@@ -84,6 +84,26 @@ struct {
 #define PIN_BUTTON_CHANGE_VECTOR_RIGHT 0
 #define PIN_BUTTON_STOP 0
 
+unsigned int getDegreeToTurn() {
+   return floor(compass_vector - 180 - atan(joystick_1_y/joystick_1_x));
+}
+
+void changeVector(int left, int right) {
+   int pin = PIN_BUTTON_CHANGE_VECTOR_LEFT;
+   if (left) {
+      int pin = PIN_BUTTON_CHANGE_VECTOR_LEFT;
+      analogWrite(PIN_BUTTON_CHANGE_VECTOR_LEFT, 4);
+   }
+   if (right) {
+      int pin = PIN_BUTTON_CHANGE_VECTOR_RIGHT;
+      analogWrite(PIN_BUTTON_CHANGE_VECTOR_RIGHT, 1);
+   }
+   unsigned int degree = getDegreeToTurn();
+   while (degree) {
+      analogWrite(pin, degree);
+      degree = getDegreeToTurn();
+   }
+}
 
 void setup() 
 {
@@ -102,11 +122,11 @@ void setup()
 void loop() 
 { 
   RemoteXY_Handler ();
+   
+  changeVector(RemoteXY.button_change_vector_left, RemoteXY.button_change_vector_right) 
   
   analogWrite(PIN_TURN_ON_ENGINE, (RemoteXY.turn_on_engine==0)?5:3);
   analogWrite(PIN_BUTTON_START, (RemoteXY.button_start==0)?2:5);
-  analogWrite(PIN_BUTTON_CHANGE_VECTOR_LEFT, (RemoteXY.button_change_vector_left==0)?4:0);
-  analogWrite(PIN_BUTTON_CHANGE_VECTOR_RIGHT, (RemoteXY.button_change_vector_right==0)?1:0);
   analogWrite(PIN_BUTTON_STOP, (RemoteXY.button_stop==0)?2:0);
   
   // TODO you loop code
