@@ -86,7 +86,7 @@ struct {
 
 unsigned int getDegreeToTurn() {
    if (!RemoteXY.joystick_1_y) {
-      return 45;
+      return 90;
    }
    if (!RemoteXY.joystick_1_x) {
       return 0;
