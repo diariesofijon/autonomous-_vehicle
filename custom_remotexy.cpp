@@ -27,6 +27,9 @@
 
 #include <RemoteXY.h>
 
+// Самодельный компас
+#include <compass.h>
+
 // RemoteXY connection settings 
 #define REMOTEXY_SERIAL_RX 2
 #define REMOTEXY_SERIAL_TX 3
@@ -136,9 +139,11 @@ void setup()
 void loop() 
 { 
   RemoteXY_Handler ();
-   
-  changeVector(RemoteXY.button_change_vector_left, RemoteXY.button_change_vector_right);
+  
+  // Самодельный компас
+  dtostrf(uresult, 0, 2, get_degree());
 
+  changeVector(RemoteXY.button_change_vector_left, RemoteXY.button_change_vector_right);
   
   writeBluetoothStream((RemoteXY.turn_on_engine==0)?5:3);
   writeBluetoothStream((RemoteXY.button_start==0)?2:5);
