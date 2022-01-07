@@ -25,6 +25,6 @@ id get_degree()
 {
     - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
     {
-       return newHeading.magneticHeading);
+       return newHeading.magneticHeading*M_PI/180;
     }
 }
