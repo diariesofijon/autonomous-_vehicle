@@ -20,3 +20,11 @@ void api_free_location(id location)
 {
     [location release];
 }
+
+id get_degree()
+{
+    - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+    {
+       return newHeading.magneticHeading);
+    }
+}
