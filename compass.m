@@ -1,8 +1,10 @@
+#import <CoreLocation/CoreLocation.h>
+
 id api_getlocation()
 {
   CLLocationManager * locationManager = [[CLLocationManager alloc] init];  
   [locationManager startUpdatingLocation];
-  [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+  [locationManager setDesiredAccuracy:CLLocationAccuracyNearestTenMeters];
    //[locationManager setDelegate:self];
 
    CLLocation* location = [locationManager location];
